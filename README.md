@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Build Status](https://github.com/ansible/awx-operator/workflows/CI/badge.svg?event=push)](https://github.com/ansible/awx-operator/actions)
-[![Code of Conduct](https://img.shields.io/badge/code%20of%20conduct-Ansible-yellow.svg)](https://docs.ansible.com/ansible/latest/community/code_of_conduct.html) 
+[![Code of Conduct](https://img.shields.io/badge/code%20of%20conduct-Ansible-yellow.svg)](https://docs.ansible.com/ansible/latest/community/code_of_conduct.html)
 [![AWX Mailing List](https://img.shields.io/badge/mailing%20list-AWX-orange.svg)](https://groups.google.com/g/awx-project)
 [![IRC Chat - #ansible-awx](https://img.shields.io/badge/IRC-%23ansible--awx-blueviolet.svg)](https://libera.chat)
 
@@ -203,7 +203,14 @@ spec:
 
 > It may make sense to create and specify your own secret key for your deployment so that if the k8s secret gets deleted, it can be re-created if needed.  If it is not provided, one will be auto-generated, but cannot be recovered if lost. Read more [here](#secret-key-configuration).
 
-If you are on Openshift, you can take advantage of Routes by specifying the following your spec. This will automatically create a Route for you with a custom hostname. This can be found on the Route section of the Openshift Console.
+```
+kubectl apply -f awx-demo.yml
+```
+
+Openshift has routes that normal k8s does not
+fixes problems with ingress?
+
+If you are on Openshift (I am not), you can take advantage of Routes by specifying the following your spec. This will automatically create a Route for you with a custom hostname. This can be found on the Route section of the Openshift Console.
 
 ```yaml
 ---
@@ -824,7 +831,7 @@ secretGenerator:
       - bundle-ca.crt=<path+filename>
     options:
       disableNameSuffixHash: true
-      
+
 ...
 ```
 
@@ -1194,7 +1201,7 @@ Delete the deployment:
 
 - delete the deployment object of your AWX instance  
 ```
-$ kubectl -n awx delete deployment <yourInstanceName> 
+$ kubectl -n awx delete deployment <yourInstanceName>
 ```
 - wait until the instance gets redeployed  
 
@@ -1250,7 +1257,7 @@ In the event you need to recover the backup see the [restore role documentation]
 
 If there is a PostgreSQL major version upgrade, after the data directory on the PVC is migrated to the new version, the old PVC is kept by default.
 This provides the ability to roll back if needed, but can take up extra storage space in your cluster unnecessarily. You can configure it to be deleted automatically
-after a successful upgrade by setting the following variable on the AWX spec. 
+after a successful upgrade by setting the following variable on the AWX spec.
 
 
 ```yaml
